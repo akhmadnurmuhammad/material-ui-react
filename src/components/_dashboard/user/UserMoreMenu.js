@@ -5,13 +5,30 @@ import { Link as RouterLink } from 'react-router-dom';
 import trash2Outline from '@iconify/icons-eva/trash-2-outline';
 import moreVerticalFill from '@iconify/icons-eva/more-vertical-fill';
 // material
-import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Menu, Button, MenuItem, IconButton, ListItemIcon, ListItemText } from '@mui/material';
+
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 // ----------------------------------------------------------------------
 
-export default function UserMoreMenu() {
+export default function UserMoreMenu({employeeId,handleAction}) {
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
+
+  // dialog
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleClickOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
 
   return (
     <>
@@ -29,20 +46,59 @@ export default function UserMoreMenu() {
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
-        <MenuItem sx={{ color: 'text.secondary' }}>
+        <MenuItem 
+          value={employeeId} 
+          onClick={() => {
+            handleClickOpenDialog();
+            }
+          }
+          sx={{ color: 'text.secondary' }}>
           <ListItemIcon>
             <Icon icon={trash2Outline} width={24} height={24} />
           </ListItemIcon>
           <ListItemText primary="Delete" primaryTypographyProps={{ variant: 'body2' }} />
         </MenuItem>
 
-        <MenuItem component={RouterLink} to="#" sx={{ color: 'text.secondary' }}>
+        <MenuItem 
+          value={employeeId} 
+          onClick={() => {
+            setIsOpen(false);
+            handleAction(employeeId,"edit");
+            }
+          }
+          sx={{ color: 'text.secondary' }}>
           <ListItemIcon>
             <Icon icon={editFill} width={24} height={24} />
           </ListItemIcon>
           <ListItemText primary="Edit" primaryTypographyProps={{ variant: 'body2' }} />
         </MenuItem>
       </Menu>
+
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          Delete Confirmation
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure want remove this data permanently?.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog}>Disagree</Button>
+          <Button onClick={() => {
+            handleAction(employeeId,"delete");
+            handleCloseDialog();
+            }
+          } autoFocus>
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

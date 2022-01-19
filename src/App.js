@@ -10,6 +10,12 @@ import { BaseOptionChartStyle } from './components/charts/BaseOptionChart';
 // ----------------------------------------------------------------------
 
 export default function App() {
+  // const [isLogin, setIsLogin] = useState(false);
+
+  // if (!isLogin) {
+  //   return <Navigate to="/login" />;
+  // }
+
   return (
     <ThemeConfig>
       <ScrollToTop />
