@@ -3,7 +3,8 @@ import { useRef, useState } from 'react';
 import homeFill from '@iconify/icons-eva/home-fill';
 import personFill from '@iconify/icons-eva/person-fill';
 import settings2Fill from '@iconify/icons-eva/settings-2-fill';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { connect,useDispatch } from 'react-redux'
 // material
 import { alpha } from '@mui/material/styles';
 import { Button, Box, Divider, MenuItem, Typography, Avatar, IconButton } from '@mui/material';
@@ -11,6 +12,7 @@ import { Button, Box, Divider, MenuItem, Typography, Avatar, IconButton } from '
 import MenuPopover from '../../components/MenuPopover';
 //
 import account from '../../_mocks_/account';
+import { delLogin } from '../../store/actions/loginAction'
 
 // ----------------------------------------------------------------------
 
@@ -35,6 +37,8 @@ const MENU_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
 
@@ -44,6 +48,10 @@ export default function AccountPopover() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const removeRedux = () => {
+    dispatch(delLogin());
+  }
 
   return (
     <>
@@ -110,7 +118,10 @@ export default function AccountPopover() {
         ))}
 
         <Box sx={{ p: 2, pt: 1.5 }}>
-          <Button fullWidth color="inherit" variant="outlined">
+          <Button onClick={() => {
+              removeRedux();
+              navigate('/login', { replace: true });
+          }} fullWidth color="inherit" variant="outlined">
             Logout
           </Button>
         </Box>

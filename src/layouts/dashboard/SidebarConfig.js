@@ -19,7 +19,7 @@ const sidebarConfig = [
   },
   {
     title: 'projects',
-    path: '/dashboard/products',
+    path: '/dashboard/project',
     icon: getIcon(folderFill)
   }
 ];

@@ -1,4 +1,5 @@
 import { Navigate, useRoutes } from 'react-router-dom';
+// import { useSelector } from "react-redux";
 // layouts
 import DashboardLayout from './layouts/dashboard';
 import LogoOnlyLayout from './layouts/LogoOnlyLayout';
@@ -7,6 +8,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import DashboardApp from './pages/DashboardApp';
 import Products from './pages/Products';
+import Projects from './pages/Project';
 import Blog from './pages/Blog';
 import User from './pages/User';
 import NotFound from './pages/Page404';
@@ -14,16 +16,24 @@ import NotFound from './pages/Page404';
 // ----------------------------------------------------------------------
 
 export default function Router() {
+  // const selector = useSelector(state => state.login);
+  // console.log("selectorr",selector);
   return useRoutes([
     {
       path: '/dashboard',
       element: <DashboardLayout />,
       children: [
-        { element: <Navigate to="/dashboard/app" replace /> },
-        { path: 'app', element: <DashboardApp /> },
-        { path: 'user', element: <User /> },
-        { path: 'products', element: <Products /> },
-        { path: 'blog', element: <Blog /> }
+        // { element:  <Navigate to="/dashboard/app" replace /> },
+        // { path: 'app', element: selector.ID !== "" ? <DashboardApp/> : <Navigate to="/login" replace /> },
+        // { path: 'user', element: selector.ID !== "" ? <User/> : <Navigate to="/login" replace /> },
+        // { path: 'project', element: selector.ID !== "" ? <Projects/> : <Navigate to="/login" replace /> },
+        // { path: 'blog', element: selector.ID !== "" ? <Blog/> : <Navigate to="/login" replace /> }
+        { element:  <Navigate to="/dashboard/app" replace /> },
+        { path: 'app', element: <DashboardApp/> },
+        { path: 'user', element: <User/> },
+        { path: 'products', element: <Products/> },
+        { path: 'project', element: <Projects/> },
+        { path: 'blog', element: <Blog/> }
       ]
     },
     {

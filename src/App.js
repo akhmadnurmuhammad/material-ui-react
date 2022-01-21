@@ -1,3 +1,5 @@
+// import { Provider} from "react-redux";
+// import store from "./store"
 // routes
 import Router from './routes';
 // theme
@@ -10,18 +12,17 @@ import { BaseOptionChartStyle } from './components/charts/BaseOptionChart';
 // ----------------------------------------------------------------------
 
 export default function App() {
-  // const [isLogin, setIsLogin] = useState(false);
-
-  // if (!isLogin) {
-  //   return <Navigate to="/login" />;
-  // }
-
   return (
-    <ThemeConfig>
-      <ScrollToTop />
-      <GlobalStyles />
-      <BaseOptionChartStyle />
-      <Router />
-    </ThemeConfig>
+    // <Provider store={store}>
+      // <div>
+        <ThemeConfig>
+          <ScrollToTop />
+          <GlobalStyles />
+          <BaseOptionChartStyle />
+          <Router />
+        </ThemeConfig>
+      // </div>
+    // </Provider>
+    
   );
 }

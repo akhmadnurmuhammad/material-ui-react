@@ -1,10 +1,11 @@
-import { filter, first, flatMap } from 'lodash';
+import { filter } from 'lodash';
 import { Icon } from '@iconify/react';
 // import { sentenceCase } from 'change-case';
 import React, { useState, useEffect } from 'react';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import peopleFill from '@iconify/icons-eva/people-fill';
 import { Link as RouterLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 // material
 import {
   Card,
@@ -215,10 +216,13 @@ export default function User() {
       setInit(false);
     }
   });
+
+  const selector = useSelector(state => state.login);
   
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsButtonSaveDisabled(true);
+  
     const payloads = {
       ID: id,
       FirstName: firstName,
@@ -231,6 +235,7 @@ export default function User() {
       RoleID: role,
       Password: password,
       PasswordConfirmation: passwordConfirmation,
+      CompanyID: selector.CompanyID,
     };
     if (id === "") {
       postEmployee(payloads)
@@ -728,7 +733,7 @@ export default function User() {
                       const name = row.FirstName;
                       const role = row.Role.Name;
                       const status = row.Account.Status;
-                      const company = row.Company.Name;
+                      const companyName = row.Company.Name;
                       const phone = row.Phone;
                       const isItemSelected = selected.indexOf(name) !== -1;
                       incrementNumbering();
@@ -745,7 +750,7 @@ export default function User() {
                               </Typography>
                             </Stack>
                           </TableCell>
-                          <TableCell align="left">{company}</TableCell>
+                          <TableCell align="left">{companyName}</TableCell>
                           <TableCell align="left">{role}</TableCell>
                           <TableCell align="left">{phone}</TableCell>
                           <TableCell align="left">{status ? 'Actived' : 'Not Active'}</TableCell>

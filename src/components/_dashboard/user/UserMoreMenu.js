@@ -15,7 +15,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 // ----------------------------------------------------------------------
 
-export default function UserMoreMenu({employeeId,handleAction}) {
+export default function UserMoreMenu({id,handleAction}) {
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -47,7 +47,7 @@ export default function UserMoreMenu({employeeId,handleAction}) {
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
         <MenuItem 
-          value={employeeId} 
+          value={id} 
           onClick={() => {
             handleClickOpenDialog();
             }
@@ -60,10 +60,10 @@ export default function UserMoreMenu({employeeId,handleAction}) {
         </MenuItem>
 
         <MenuItem 
-          value={employeeId} 
+          value={id} 
           onClick={() => {
             setIsOpen(false);
-            handleAction(employeeId,"edit");
+            handleAction(id,"edit");
             }
           }
           sx={{ color: 'text.secondary' }}>
@@ -91,7 +91,7 @@ export default function UserMoreMenu({employeeId,handleAction}) {
         <DialogActions>
           <Button onClick={handleCloseDialog}>Disagree</Button>
           <Button onClick={() => {
-            handleAction(employeeId,"delete");
+            handleAction(id,"delete");
             handleCloseDialog();
             }
           } autoFocus>
